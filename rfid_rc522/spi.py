@@ -29,15 +29,13 @@ class RC522Spi(RC522):
 
     def register_write(self, register: RC522Register, data: bytes) -> None:
         encoded = self._encode_register(register, write=True)
-        print("Write {:x} -> {:x}".format(register, encoded), data)
         buffer = [encoded, *data]
         self.dev.xfer2(buffer)
 
     def register_read(self, register: RC522Register, count: int=1) -> Union[int, bytes]:
         result = bytearray()
         for i in range(count):
-            buffer = [0x00, 0x00]
-            buffer[0] = self._encode_register(register)
+            buffer = [self._encode_register(register), 0x00]
             values = self.dev.xfer2(buffer)
             result.append(values[1])
         if len(result) == 1:
