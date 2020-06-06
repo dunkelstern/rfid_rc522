@@ -48,7 +48,7 @@ SerialSpeedReg  = RC522Register(0x1F)  # selects the speed of the serial UART in
 
 # Page 2: Configuration
 CRCResultRegMSB = RC522Register(0x21)  # shows the MSB value of the CRC calculation
-CRCResultRegLSB = RC522Register(0x21)  # shows the LSB value of the CRC calculation
+CRCResultRegLSB = RC522Register(0x22)  # shows the LSB value of the CRC calculation
 ModWidthReg     = RC522Register(0x24)  # controls the ModWidth setting
 RFCfgReg        = RC522Register(0x26)  # configures the receiver gain
 GsNReg          = RC522Register(0x27)  # selects the conductance of the antenna driver pins TX1 and TX2 for modulation
