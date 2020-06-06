@@ -1,0 +1,1 @@
+from .spi import RC522Spi
