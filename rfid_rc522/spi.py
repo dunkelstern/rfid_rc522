@@ -34,14 +34,15 @@ class RC522Spi(RC522):
         self.dev.xfer2(buffer)
 
     def register_read(self, register: RC522Register, count: int=1) -> Union[int, bytes]:
-        buffer = [0x00] * (count + 1)
-        buffer[0] = self._encode_register(register)
-        print("Read {:x} -> {:x}".format(register, buffer[0]), count)
-        values = self.dev.xfer2(buffer)
-        if count == 1:
-            return values[1]
-        else:
-            return bytes(values[1:])
+        result = bytearray()
+        for i in range(count):
+            buffer = [0x00, 0x00]
+            buffer[0] = self._encode_register(register)
+            values = self.dev.xfer2(buffer)
+            result.append(values[1])
+        if len(result) == 1:
+            return result[0]
+        return bytes(result)
 
     def reset(self, hard: bool=False) -> None:
         if hard and self.reset_pin:
