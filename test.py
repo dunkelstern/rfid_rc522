@@ -12,7 +12,7 @@ try:
     
     rfid = RC522Spi(spi, 22)
 
-    print(rfid.calculate_crc(bytes(10)))
+    assert rfid.calculate_crc(b'123456789') == b'\xbf\x05'
 
     if rfid.selftest():
        print("selftest passed!")
