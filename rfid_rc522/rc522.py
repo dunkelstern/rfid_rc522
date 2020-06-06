@@ -113,11 +113,11 @@ class RC522:
         self.register_write_byte(CommandReg, Command_CalcCRC)
 
         # Poll fifo state
-        while True:
+        for _ in range(50):
             value = self.register_read(FIFOLevelReg)
             if value >= 64:
                 break
-            sleep(0.01)
+            sleep(0.02)
 
         self.execute_command(Command_Idle)
         data = self.register_read(FIFODataReg, count=64)
